@@ -13,50 +13,62 @@ import android.widget.VideoView;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView imageView;
-    VideoView videoView;
+    private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
+    private static final int CAMERA_CAPTURE_VIDEO_REQUEST_CODE = 100;
 
-    static final int REQUEST_VIDEO_CAPTURE = 1;
+    private ImageView imgPreview;
+    private VideoView videoPrevIew;
+    private Button btnCapturePicture, btnRecordVideo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnPhoto = (Button) findViewById(R.id.btnPhoto);
-        imageView = (ImageView) findViewById(R.id.ImageViev);
+        imgPreview = (ImageView) findViewById(R.id.imgPreview);
+        videoPrevIew = (VideoView) findViewById(R.id.videoPreview);
+        btnCapturePicture = (Button) findViewById(R.id.btnCapturePicture);
+        btnRecordVideo = (Button) findViewById(R.id.btnRecordVideo);
 
-        Button btnVideo = (Button) findViewById(R.id.btnVideo);
-        videoView = (VideoView) findViewById(R.id.VideoViev);
+        btnCapturePicture.setOnClickListener(new View.OnClickListener() {
 
-        btnPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View PhotoView) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent,0);
+            public void onClick(View v) {
+                // capture picture
+                captureImage();
+            }
+        });
+
+        btnRecordVideo.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                    // record video
+                    recordVideo();
             }
         });
     }
 
-    public void dispatchTakeVideoIntent(View VideoView) {
-        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-        if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
-        }
+    private void captureImage() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
+    }
+
+    private void recordVideo() {
+        Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        startActivityForResult(intent, CAMERA_CAPTURE_VIDEO_REQUEST_CODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bitmap = (Bitmap)data.getExtras().get("data");
-        imageView.setImageBitmap(bitmap);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
-            Uri videoUri = intent.getData();
-            mVideoView.setVideoURI(videoUri);
+        if (requestCode == CAMERA_CAPTURE_IMAGE_REQUEST_CODE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imgPreview.setImageBitmap(imageBitmap);
+            }
+        else if (requestCode == CAMERA_CAPTURE_VIDEO_REQUEST_CODE && resultCode == RESULT_OK) {
+                    Uri videoUri = data.getData();
+                    videoPrevIew.setVideoURI(videoUri);
         }
     }
 }
