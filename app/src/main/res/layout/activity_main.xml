@@ -2,19 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="com.example.myapplication.MainActivity">
 
     <LinearLayout
-        android:layout_height="fill_parent"
-        android:layout_width="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/btnCapturePicture"
-            android:layout_width="match_parent"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_blue_dark"
             android:text="photo"
@@ -22,39 +22,24 @@
 
         <Button
             android:id="@+id/btnRecordVideo"
-            android:layout_width="match_parent"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_red_dark"
             android:onClick="dispatchTakeVideoIntent"
             android:text="video"
             android:textColor="@android:color/white" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_height="fill_parent"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Preview"
-            android:padding="10dp"
-            android:textSize="15dp" />
-
         <ImageView
             android:id="@+id/imgPreview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <VideoView
             android:id="@+id/videoPreview"
             android:layout_width="wrap_content"
-            android:layout_height="400dp"
-            android:visibility="gone"/>
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
     </LinearLayout>
 
 </LinearLayout>

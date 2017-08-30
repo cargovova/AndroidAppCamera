@@ -31,10 +31,8 @@ public class MainActivity extends AppCompatActivity {
         btnRecordVideo = (Button) findViewById(R.id.btnRecordVideo);
 
         btnCapturePicture.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // capture picture
                 captureImage();
             }
         });
@@ -43,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                    // record video
                     recordVideo();
             }
         });
